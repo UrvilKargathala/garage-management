@@ -1,0 +1,27 @@
+# ─────────────────────────────────────────────────────────────
+#  .htaccess — Root Web Server Security Configuration
+#  Garage Management System
+# ─────────────────────────────────────────────────────────────
+
+# 1. Disable directory indexing / directory browsing
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# 2. Block direct access to hidden files and sensitive file extensions
+<FilesMatch "(^\..*|\.(bak|backup|config|sql|ini|log|sh|md|json))$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Deny,Allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 3. Security Headers via mod_headers (if enabled in Apache)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

@@ -1,0 +1,17 @@
+# ─────────────────────────────────────────────────────────────
+#  database/.htaccess — Block direct browser access
+#  Garage Management System
+#
+#  This directory contains the SQL schema (garage.sql) and
+#  a developer diagnostic tool (test-connection.php).
+#  Neither should be accessible via HTTP in any environment.
+# ─────────────────────────────────────────────────────────────
+<IfModule mod_authz_core.c>
+    # Apache 2.4+
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    # Apache 2.2 fallback
+    Order deny,allow
+    Deny from all
+</IfModule>

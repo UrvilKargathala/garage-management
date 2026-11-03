@@ -1,0 +1,16 @@
+# ─────────────────────────────────────────────────────────────
+#  config/.htaccess — Block direct browser access
+#  Garage Management System
+#
+#  This directory contains database credentials (database.php).
+#  PHP includes work normally; only direct HTTP requests are denied.
+# ─────────────────────────────────────────────────────────────
+<IfModule mod_authz_core.c>
+    # Apache 2.4+
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    # Apache 2.2 fallback
+    Order deny,allow
+    Deny from all
+</IfModule>
